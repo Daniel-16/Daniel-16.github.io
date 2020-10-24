@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Guessing Game</title>
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-dark sticky-top bg-danger">
+        <a class="navbar-brand text-white">Dan's Guessing Game</a>
+    </nav>
+    
+    <div class="container flex-center mt-5 mb-5">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="text-center display-4 card-title">Guessing Game</h1>
+            <p class="text-center">Welcome to my guessing game. All you have to do is to guess between the range of values given. How good are you in guessing right. Test your guessing skills here</p>
+            <br>
+            <p id="message"></p>
+            <p id="trials" style="text-align: center;">You have 10 trials</p>
+        <form action="" id="form">
+            <input type="number" name="number" id="none" class="form-control" placeholder="Guess a number from 1-20" required autofocus>
+            <button type="submit" id="button" class="btn btn-danger mt-3">Guess</button><div id="try"></div>
+        </form>
+        </div>
+    </div>
+    </div>
+<footer class="footer mt-5 py-3 sticky-bottom" style="background-color: lightgrey;">
+  <div class="container">
+    <ul class="list-group list-group-flush" style="list-style-type: none;">
+        <p class="lead">Contact Me</p>
+        <li>
+            <i class="fa fa-whatsapp mr-2"></i> <a href="https://wa.me/2349077234932/">WhatsApp</a>
+        </li>
+        <li>
+            <i class="fa fa-phone mr-2"></i> <a href="tel:+2349077234932">Phone</a>
+        </li>
+        <li>
+            <i class="fa fa-github mr-2"></i> <a href="https://github.com/Daniel-16">GitHub</a>
+        </li>
+    </ul>
+    <p class="text-muted text-center">Managed and Created by Daniel<br>All rights reserved <span class="fa fa-copyright"> Copyright</span></p>
+  </div>
+</footer>
+    <script>
+        var button = document.getElementById('button');
+        var form = document.getElementById('form');
+        var message = document.getElementById('message');
+        var input = document.getElementById('none');
+        var tryAgain = document.getElementById('try');
+        var trials = document.getElementById('trials');
+        var count = 0;
+        var myTrials = 9;
+        form.addEventListener('submit', (form) => {
+            form.preventDefault();
+            var random = Math.floor(Math.random() * 21);
+            console.log(random);
+            if (form.target.number.value == random) {
+                message.innerHTML = `<div class='alert alert-success'>
+                You guessed right after ${count+1} trials! That's good of you. Keep guessing!
+                </div>`;
+                trials.style.display = 'none'
+                input.disabled = true;
+                button.disabled = true;
+                tryAgain.innerHTML = `<a class='btn btn-danger mt-2' href='guess.html'>Start Again</a>`
+            }
+            else if (form.target.number.value == random && count == 1) {
+                message.innerHTML = `<div class='alert alert-success'>
+                You guessed right after ${count+1} trial! That's good of you. Keep guessing!
+                </div>`;
+                trials.style.display = 'none';
+                tryAgain.innerHTML = `<a class='btn btn-danger mt-2' href='guess.html'>Start Again</a>`
+            }
+            else if (form.target.number.value > 20) {
+                message.innerHTML = `<div class='alert alert-danger'>
+                REALLY !! You are meant to guess a number within the given range !!!
+                </div>`;
+                message.style.color = 'red';
+            }
+            else {
+                message.style.color = 'red';
+                message.innerHTML = `<div class='alert alert-danger' role='alert'>
+                You guessed wrong. The correct number was ${random} Try Again
+                </div>
+                `;
+            };
+            form.target.number.value = '';
+            count += 1;
+            trials.innerHTML = `You have ${myTrials} trials left`;
+            myTrials --;
+            if (myTrials < 0) {
+                button.disabled = true;
+                input.disabled = true;
+                trials.style.display = 'none';
+                message.innerHTML = `<div class='alert alert-danger' role='alert'>
+                Game Over! Start Again! And the last number was ${random}
+                </div>
+                `;
+                tryAgain.innerHTML = `<a class='btn btn-danger mt-2' href='guess.html'>Start Again</a>`
+            }
+        })
+    </script>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+</script>
+</body>
+</html>
